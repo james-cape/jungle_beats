@@ -66,8 +66,8 @@ class LinkedListTest < Minitest::Test
     assert_equal true, list.includes?("blop")
     assert_equal false, list.includes?("dep")
 
-    list.pop
-    list.pop
+    assert_equal "blop", list.pop
+    assert_equal "shu", list.pop
 
     assert_equal "deep woo shi", list.to_string
   end
@@ -79,11 +79,8 @@ class LinkedListTest < Minitest::Test
     list.append("woo")
 
     assert_equal "deep woo", list.to_string
-
-    list.pop
-    list.pop
-    list.pop
-
-    assert_equal "deep woo shi", list.to_string
+    assert_equal "woo", list.pop
+    assert_equal "deep", list.pop
+    refute list.pop
   end
 end
