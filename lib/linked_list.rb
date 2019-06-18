@@ -29,11 +29,34 @@ class LinkedList
     string.chomp(" ")
   end
 
+  def prepend(data)
+  front_node = Node.new(data)
+  front_node.next_node = @head
+  @head = front_node
+  end
+
+  def insert(target_after, data)
+    current_node = index_node(target_after - 1)
+    old_next_node = current_node.next_node
+    current_node.next_node = Node.new(data)
+    current_node.next_node.next_node = old_next_node
+  end
+
   private
 
   def tail_node
     current_node = @head
     current_node = current_node.next_node while current_node.next_node
     current_node
+  end
+
+  def index_node(index)
+    index_node = @head
+    counter = 0
+    while counter != index
+      counter += 1
+      index_node = index_node.next_node
+    end
+    index_node
   end
 end
