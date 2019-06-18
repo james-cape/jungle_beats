@@ -83,4 +83,22 @@ class LinkedListTest < Minitest::Test
     assert_equal "deep", list.pop
     refute list.pop
   end
+
+  def test_if_empty_list_includes_anything
+    list = LinkedList.new
+
+    refute list.head
+
+    list.append("deep")
+    list.append("woo")
+
+    list.pop
+    list.pop
+
+    refute list.head
+
+    list.append("deep")
+
+    assert_equal "deep", list.head.data
+  end
 end

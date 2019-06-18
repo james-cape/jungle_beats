@@ -57,12 +57,12 @@ class LinkedList
   end
 
   def pop
-    @head.next_node ? pop_from_linked : pop_single
+    !@head ? pop_empty : !@head.next_node ? pop_single : pop_linked
   end
 
   private
 
-  def pop_from_linked
+  def pop_linked
     node = @head
     node = node.next_node while node.next_node != tail_node
     popped_data = node.next_node.data
@@ -72,8 +72,12 @@ class LinkedList
 
   def pop_single
     popped_data = @head.data
-    @head.data = nil
+    @head = nil
     popped_data
+  end
+
+  def pop_empty
+    nil
   end
 
   def tail_node
