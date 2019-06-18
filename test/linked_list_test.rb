@@ -31,7 +31,7 @@ class LinkedListTest < Minitest::Test
     assert_equal 2, list.count
     assert_equal "doop deep", list.to_string
   end
-  
+
   def test_it_prepends_and_inserts
     list = LinkedList.new
 
@@ -46,5 +46,29 @@ class LinkedListTest < Minitest::Test
 
     list.insert(1, "woo")
     assert_equal "dop woo plop suu", list.to_string
+  end
+
+  def test_it_finds_pops_and_includes
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+
+    assert_equal "deep woo shi shu blop", list.to_string
+
+    assert_equal "shi", list.find(2,1)
+    assert_equal "woo shi shu", list.find(1,3)
+
+    assert_equal true, list.includes?("deep")
+    assert_equal true, list.includes?("blop")
+    assert_equal false, list.includes?("dep")
+
+    list.pop
+    list.pop
+
+    assert_equal "deep woo shi", list.to_string
   end
 end

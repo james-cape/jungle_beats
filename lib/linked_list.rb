@@ -30,9 +30,9 @@ class LinkedList
   end
 
   def prepend(data)
-  front_node = Node.new(data)
-  front_node.next_node = @head
-  @head = front_node
+    front_node = Node.new(data)
+    front_node.next_node = @head
+    @head = front_node
   end
 
   def insert(target_after, data)
@@ -40,6 +40,26 @@ class LinkedList
     old_next_node = current_node.next_node
     current_node.next_node = Node.new(data)
     current_node.next_node.next_node = old_next_node
+  end
+
+  def find(index, quantity)
+    produce_string(index_node(index), quantity)
+  end
+
+  def includes?(data)
+    has_data = false
+    current_node = @head
+    while current_node && has_data == false
+      has_data = true if current_node.data == data
+      current_node = current_node.next_node
+    end
+    has_data
+  end
+
+  def pop
+    node = @head
+    node = node.next_node while node.next_node != tail_node
+    node.next_node = nil
   end
 
   private
@@ -58,5 +78,16 @@ class LinkedList
       index_node = index_node.next_node
     end
     index_node
+  end
+
+  def produce_string(index_node, quantity)
+    counter = 1
+    string = index_node.data
+    while counter != quantity
+      counter += 1
+      string += " #{index_node.next_node.data}"
+      index_node = index_node.next_node
+    end
+    string
   end
 end
