@@ -71,4 +71,19 @@ class LinkedListTest < Minitest::Test
 
     assert_equal "deep woo shi", list.to_string
   end
+
+  def test_it_pops_more_nodes_than_exist
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    assert_equal "deep woo", list.to_string
+
+    list.pop
+    list.pop
+    list.pop
+
+    assert_equal "deep woo shi", list.to_string
+  end
 end
