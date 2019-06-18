@@ -101,4 +101,15 @@ class LinkedListTest < Minitest::Test
 
     assert_equal "deep", list.head.data
   end
+
+  def test_inserting_elements_after_list_ends_adds_them_to_end
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    list.insert(5, "blop")
+
+    assert_equal "deep woo blop", list.to_string
+  end
 end

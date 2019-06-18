@@ -89,7 +89,7 @@ class LinkedList
   def index_node(index)
     index_node = @head
     counter = 0
-    while counter != index
+    while counter != index && counter != count - 1
       counter += 1
       index_node = index_node.next_node
     end
