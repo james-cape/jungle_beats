@@ -43,7 +43,13 @@ class LinkedList
   end
 
   def find(index, quantity)
-    produce_string(index_node(index), quantity)
+    if index > count
+      "The specified node falls outside the list's range between 0 and #{count}"
+    elsif quantity > count - index
+      "Your specified nodes extend beyond the lists range"
+    else
+      produce_string(index_node(index), quantity)
+    end
   end
 
   def includes?(data)

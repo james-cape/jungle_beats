@@ -112,4 +112,19 @@ class LinkedListTest < Minitest::Test
 
     assert_equal "deep woo blop", list.to_string
   end
+
+  def test_finding_index_out_of_range
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    expected = "The specified node falls outside the list's range between 0 and 2"
+    actual = list.find(3, 1)
+    assert_equal expected, actual
+
+    expected = "Your specified nodes extend beyond the lists range"
+    actual = list.find(2, 2)
+    assert_equal expected, actual
+  end
 end
