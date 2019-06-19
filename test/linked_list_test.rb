@@ -66,9 +66,65 @@ class LinkedListTest < Minitest::Test
     assert_equal true, list.includes?("blop")
     assert_equal false, list.includes?("dep")
 
+    assert_equal "blop", list.pop
+    assert_equal "shu", list.pop
+
+    assert_equal "deep woo shi", list.to_string
+  end
+
+  def test_it_pops_more_nodes_than_exist
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    assert_equal "deep woo", list.to_string
+    assert_equal "woo", list.pop
+    assert_equal "deep", list.pop
+    refute list.pop
+  end
+
+  def test_if_empty_list_includes_anything
+    list = LinkedList.new
+
+    refute list.head
+
+    list.append("deep")
+    list.append("woo")
+
     list.pop
     list.pop
 
-    assert_equal "deep woo shi", list.to_string
+    refute list.head
+
+    list.append("deep")
+
+    assert_equal "deep", list.head.data
+  end
+
+  def test_inserting_elements_after_list_ends_adds_them_to_end
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    list.insert(5, "blop")
+
+    assert_equal "deep woo blop", list.to_string
+  end
+
+  def test_finding_index_out_of_range
+    list = LinkedList.new
+
+    list.append("deep")
+    list.append("woo")
+
+    expected = "The specified node falls outside the list's range between 0 and 2"
+    actual = list.find(3, 1)
+    assert_equal expected, actual
+
+    expected = "Your specified nodes extend beyond the lists range"
+    actual = list.find(2, 2)
+    assert_equal expected, actual
   end
 end

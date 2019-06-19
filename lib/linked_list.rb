@@ -43,7 +43,13 @@ class LinkedList
   end
 
   def find(index, quantity)
-    produce_string(index_node(index), quantity)
+    if index > count
+      "The specified node falls outside the list's range between 0 and #{count}"
+    elsif quantity > count - index
+      "Your specified nodes extend beyond the lists range"
+    else
+      produce_string(index_node(index), quantity)
+    end
   end
 
   def includes?(data)
@@ -57,12 +63,28 @@ class LinkedList
   end
 
   def pop
-    node = @head
-    node = node.next_node while node.next_node != tail_node
-    node.next_node = nil
+    !@head ? pop_empty : !@head.next_node ? pop_single : pop_linked
   end
 
   private
+
+  def pop_linked
+    node = @head
+    node = node.next_node while node.next_node != tail_node
+    popped_data = node.next_node.data
+    node.next_node = nil
+    popped_data
+  end
+
+  def pop_single
+    popped_data = @head.data
+    @head = nil
+    popped_data
+  end
+
+  def pop_empty
+    nil
+  end
 
   def tail_node
     current_node = @head
@@ -73,7 +95,7 @@ class LinkedList
   def index_node(index)
     index_node = @head
     counter = 0
-    while counter != index
+    while counter != index && counter != count - 1
       counter += 1
       index_node = index_node.next_node
     end
